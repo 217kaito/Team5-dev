@@ -3,7 +3,7 @@ const {
   createMessage,
   markMessageAsReplied,
   unmarkMessageAsReplied,
-  generateMassageId,
+  generateMessageId,
   createThread,
   getThreads,
   getMessagesInThread,
