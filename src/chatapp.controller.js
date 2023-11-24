@@ -16,7 +16,7 @@ const router = PromiseRouter();
 // HTTP POSTメソッドに対応したエンドポイントの処理を定義
 // フォームからの入力を用いて新しいメッセージを作成するエンドポイント
 // 入力が増える可能性もあることから、オブジェクトを利用
-router.post("/add", async (req, res) => {
+router.post("/threads/:threadsId/add", async (req, res) => {
   const message = {
     id: generateMessageId(),
     name: req.body.name,
