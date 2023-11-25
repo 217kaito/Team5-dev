@@ -11,6 +11,11 @@ const createPost = async (messageIp, messageThreadId, messageContent) => {
     content: messageContent,
     threadId: messageThreadId,
   });
+  await models.thread.findOne({ id : messageThreadId }).then(thread => {
+    thread.updatedAt = new Date();
+    thread.changed("updatedAt", true);
+    thread.save();
+  });
 };
 
 // スレッドの作成
