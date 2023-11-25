@@ -7,7 +7,7 @@ const Model = {};
 // const sequelize = new Sequelize(process.env.DB_CONNECTION_URL);
 const sequelize = new Sequelize({
   dialect: "sqlite",
-  storage: "db",
+  storage: "db/database.sqlite",
   logQueryParameters: true,
   benchmark: true,
 });
