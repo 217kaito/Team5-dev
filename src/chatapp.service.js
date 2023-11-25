@@ -1,16 +1,12 @@
 "use strict";
 
-const createPost = async (ip, threadId, content) => {
-};
+const createPost = async (ip, threadId, content) => {};
 
-const createThread = async (ip, title) => {
-};
+const createThread = async (ip, title) => {};
 
-const getThreads = async () => {
-};
+const getThreads = async () => {};
 
-const getPostsByThreadId = async (threadId) => {
-};
+const getPostsByThreadId = async (threadId) => {};
 
 module.exports = {
   createPost,
