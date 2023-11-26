@@ -1,12 +1,44 @@
 "use strict";
 
-const createPost = async (ip, threadId, content) => {};
+// src/chatapp.service.js
+"use strict";
+const { models } = require("./models");
 
-const createThread = async (ip, title) => {};
+// メッセージの作成
+const createPost = async (messageIp, messageThreadId, messageContent) => {
+  await models.message.create({
+    ip: messageIp,
+    content: messageContent,
+    threadId: messageThreadId,
+  });
+  await models.thread.findOne({ id : messageThreadId }).then(thread => {
+    thread.updatedAt = new Date();
+    thread.changed("updatedAt", true);
+    thread.save();
+  });
+};
 
-const getThreads = async () => {};
+// スレッドの作成
+const createThread = async (threadIp, threadTitle) => {
+  await models.thread.create({
+    ip: threadIp,
+    title: threadTitle,
+  });
+};
 
-const getPostsByThreadId = async (threadId) => {};
+// 全てのスレッドを取得
+const getThreads = async () => {
+  const threads = await models.thread.findAll();
+  return threads;
+};
+
+// スレッドの全てのメッセージを取得
+const getPostsByThreadId = async (threadid) => {
+  const messages = await models.message.findAll({
+    where: { threadId: threadid },
+  });
+  return messages;
+};
 
 module.exports = {
   createPost,

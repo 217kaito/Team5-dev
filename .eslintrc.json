@@ -1,16 +1,16 @@
 {
-    "env": {
+  "env": {
     "browser": true,
     "commonjs": true,
     "es2021": true,
     "node": true
-    },
-    "extends": ["standard", "prettier"],
-    "parserOptions": {
+  },
+  "extends": ["standard", "prettier"],
+  "parserOptions": {
     "ecmaVersion": "latest"
-    },
-    "rules": {
+  },
+  "rules": {
     "quotes": ["error", "double"],
     "semi": ["error", "always"]
-    }
+  }
 }
