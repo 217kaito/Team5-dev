@@ -23,7 +23,7 @@ router.post("/thread/:threadId/post", async (req, res) => {
 // スレッドの作成エンドポイント
 router.post("/threads/create", async (req, res) => {
   const ip = req.ip;
-  const title = req.body.title;
+  const title = req.body.threadTitle;
   await createThread(ip, title);
   res.redirect("/threads"); // スレッド一覧ページにリダイレクト
 });
