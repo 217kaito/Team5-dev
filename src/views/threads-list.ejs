@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -13,5 +13,10 @@
       <li><a href="/threads/<%= thread.id %>"><%= thread.title %></a></li>
       <% }); %>
     </ul>
+    <form action="/threads/create" method="post">
+      <label for="threadTitle">New Thread Title:</label>
+      <input type="text" id="threadTitle" name="threadTitle" required />
+      <button type="submit">Create New Thread</button>
+    </form>
   </body>
 </html>
