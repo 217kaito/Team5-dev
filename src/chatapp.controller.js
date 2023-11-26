@@ -38,7 +38,7 @@ router.get("/threads", async (req, res) => {
 router.get("/threads/:threadId", async (req, res) => {
   const threadId = req.params.threadId;
   const posts = await getPostsByThreadId(threadId);
-  res.render("thread-view", { posts });
+  res.render("thread-view", { posts , threadId });
 });
 
 module.exports = {
