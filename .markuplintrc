@@ -1,0 +1,8 @@
+{
+  "parser": {
+    "\\.ejs$": "@markuplint/ejs-parser"
+  },
+  "extends": [
+    "markuplint:recommended"
+  ]
+}
