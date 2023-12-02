@@ -11,7 +11,10 @@
     <a href="/threads"> back to thread list</a>
     <ul>
       <% posts.forEach(post => { %>
-      <li><%= post.content %> - <%= post.ip %></li>
+      <li>        
+        <%= post.content %> - <%= post.ip %> -
+        投稿日時: <%= post.createdAt %> 
+      </li>
       <% }); %>
     </ul>
     <!-- Add a form to allow users to post new messages to this thread -->
