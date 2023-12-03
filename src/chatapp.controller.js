@@ -35,7 +35,7 @@ router.post("/create", async (req, res) => {
 // スレッド一覧を表示するエンドポイント
 router.get("/", async (req, res) => {
   const threads = await getThreads();
-  res.render("thread-list", { threads });
+  res.render("threads-list", { threads });
 });
 
 // 特定のスレッド内のメッセージ一覧を表示するエンドポイント
