@@ -1,26 +1,18 @@
-/* 背景を黒色にする */
+/* 背景をグラデーションにする */
 body {
-  background-color: black;
-  color: white; /* テキストの色を白に設定 */
-}
-
-/* スレッドのアイコンを追加 */
-.list-group-item::before {
-  content: "\2022"; /* Unicodeの黒い円マーク（●）を使ってアイコンを表示 */
-  margin-right: 8px;
+  background: radial-gradient(circle, #603c8e 0%, #28043c 100%);
 }
 
 /* タイトルを装飾 */
 .list-group-item a {
-  color: lightblue; /* リンクの色を設定 */
+  color: blue; /* リンクの色を設定 */
   font-weight: bold; /* フォントを太くする */
 }
 
-/* スレッドリストとフォームの間に暗い背景で区切りを入れる */
-.container {
-  background-color: #333; /* 暗い背景色を指定 */
-  padding: 20px; /* 上下左右の余白を追加 */
-  margin-top: 20px; /* 上部の余白を追加 */
+.container1, .container2 {
+  background-color: #28043c; /* 背景の最も濃い紫と同じ色に設定 */
+  margin-left: 5px;
+  margin-right: 5px;
   border-radius: 10px; /* 角を丸める */
 }
 
@@ -29,4 +21,9 @@ body {
 .form-control,
 .btn {
   margin-top: 10px; /* 各要素の上部に余白を追加 */
+}
+
+/* スレッドとスレッドの間にマージンを追加 */
+.list-group-item {
+  margin-bottom: 10px;
 }
