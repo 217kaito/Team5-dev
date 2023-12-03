@@ -8,17 +8,16 @@
   </head>
   <body>
     <h1>Thread View</h1>
-    <a href="/threads"> back to thread list</a>
+    <a href="/logout">ログアウト</a>
     <ul>
       <% posts.forEach(post => { %>
-        <li>        
-          <%= post.content %> - <%= post.ip %> -
-          投稿日時: <%= post.createdAt.toLocaleString("ja-JP", { weekday: "long", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }) %>
-        </li>
-      <% }); %>      
+      <li><%= post.content %> - <%= post.user.username%>-
+        投稿日時: <%= post.createdAt.toLocaleString("ja-JP", { weekday: "long", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }) %>
+      </li>
+      <% }); %>
     </ul>
     <!-- Add a form to allow users to post new messages to this thread -->
-    <form action="/thread/<%= threadId %>/post" method="post">
+    <form action="/threads/<%= threadId %>/post" method="post">
       <label for="content">New Post:</label>
       <textarea id="content" name="content" rows="4" cols="50"></textarea>
       <br />

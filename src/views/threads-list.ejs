@@ -8,6 +8,7 @@
   </head>
   <body>
     <h1>Thread List</h1>
+    <a href="/logout">ログアウト</a>
     <ul>
       <% threads.forEach(thread => { %>
       <li><a href="/threads/<%= thread.id %>"><%= thread.title %></a></li>

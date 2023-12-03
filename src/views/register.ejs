@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login</title>
+  </head>
+  <body>
+    <h1>Register</h1>
+    <a href="/login">ログイン</a>
+    <form action="/register" method="POST">
+      <label for="employeeid">社員ID:</label>
+      <input
+        type="text"
+        id="employeeid"
+        name="employeeid"
+        pattern="[a-z]{2}[0-9]{6}"
+        required
+      /><br /><br />
+      <label for="username">Username</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        maxlength="16"
+        required
+      /><br /><br />
+      <label for="username">Password:</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        minlength="8"
+        maxlength="16"
+        required
+      /><br /><br />
+      <button type="submit">register</button>
+    </form>
+  </body>
+</html>

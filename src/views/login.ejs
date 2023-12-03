@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login</title>
+  </head>
+  <body>
+    <h1>Login</h1>
+    <a href="/register">登録</a>
+    <form action="/login" method="post">
+      <div>
+        <label for="employeeId">社員ID</label>
+        <input
+          id="employeeId"
+          name="username"
+          type="text"
+          pattern="[a-z]{2}[0-9]{6}"
+          autocomplete="on"
+          required
+        />
+      </div>
+      <div>
+        <label for="current-password">Password</label>
+        <input
+          id="current-password"
+          name="password"
+          type="password"
+          minlength="8"
+          maxlength="16"
+          autocomplete="current-password"
+          required
+        />
+      </div>
+      <div>
+        <button type="submit">Sign in</button>
+      </div>
+    </form>
+  </body>
+</html>
