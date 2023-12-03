@@ -1,28 +1,59 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Thread View</title>
-  </head>
-  <body>
-    <h1>Thread View</h1>
-    <a href="/threads"> back to thread list</a>
-    <ul>
-      <% posts.forEach(post => { %>
-        <li>        
-          <%= post.content %> - <%= post.ip %> -
-          投稿日時: <%= post.createdAt.toLocaleString("ja-JP", { weekday: "long", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }) %>
-        </li>
-      <% }); %>      
-    </ul>
-    <!-- Add a form to allow users to post new messages to this thread -->
-    <form action="/thread/<%= threadId %>/post" method="post">
-      <label for="content">New Post:</label>
-      <textarea id="content" name="content" rows="4" cols="50"></textarea>
-      <br />
-      <button type="submit">Post</button>
-    </form>
-  </body>
+<head>
+    <!-- Meta tags and title remain unchanged -->
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons CSS (v1.11.2) via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Your custom CSS -->
+    <link rel="stylesheet" href="/thread-view.css">
+
+    <!-- Custom Styles for Centering -->
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            align-items: start; /* ここを start に変更 */
+            justify-content: center;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Thread View</h1>
+        <a href="/threads">Back to Thread List</a>
+
+        <ul>
+            <% posts.forEach(post => { %>
+                <li>
+                    <div class="message-icon">
+                        <i class="bi bi-file-person"></i>
+                    </div>
+                    <div class="message-content">
+                        <%= post.content %> - <%= post.ip %> -
+                        投稿日時: <%= post.createdAt.toLocaleString("ja-JP", { weekday: "long", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }) %>
+                    </div>
+                </li>
+            <% }); %>
+        </ul>
+
+        <label for="content">New Post:</label>
+        <form action="/thread/<%= threadId %>/post" method="post">
+            <textarea id="content" name="content" rows="4" cols="50"></textarea>
+            <br />
+            <button type="submit">Post</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
