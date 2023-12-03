@@ -1,0 +1,57 @@
+/* src/public/thread-view.css */
+
+/* Additional styles for message list */
+body {
+    background-color: #712cf9;
+    color: #fff;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    background-color: #000;
+}
+
+/* Style for the icon */
+li .message-icon {
+    margin-right: 10px;
+}
+
+/* Style for the message content */
+li .message-content {
+    flex-grow: 1;
+}
+
+/* Style for the New Post label */
+label[for="content"] {
+    font-weight: bold;
+}
+
+/* Styles for the textarea */
+#content {
+    /* Add any additional styles for the textarea if needed */
+}
+
+/* Style for the Post button */
+button {
+    background-color: #28a745; /* ボタンの背景色を緑に設定 */
+    color: #fff; /* ボタンの文字色を白に設定 */
+    padding: 8px 16px; /* ボタンの余白を追加 */
+    border: none; /* ボーダーをなくす */
+    border-radius: 4px; /* ボーダーの角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    transition: background-color 0.3s ease; /* 背景色の変化を滑らかにするアニメーション */
+}
+
+/* Hover state for the Post button */
+button:hover {
+    background-color: #218838; /* ホバー時の背景色を変更 */
+}
