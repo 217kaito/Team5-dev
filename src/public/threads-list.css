@@ -17,6 +17,13 @@ body {
   border-radius: 10px; /* 角を丸める */
 }
 
+.logout {
+  text-align: right;
+  position: relative; /* 今の位置を基準 */
+  bottom: 40px;
+  right: 10px;
+}
+
 /* スレッド作成フォームを調整 */
 .form-label,
 .form-control,
