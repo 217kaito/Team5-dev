@@ -33,6 +33,16 @@ body {
   border-color: #0056b3;
 }
 
+.h3-mb-3-fw-normal {
+  color: #fcf7f8;
+}
+
+.register {
+  text-align: left;
+  position: relative; /* 今の位置を基準 */
+  top: 20px; /* 上から20px */
+}
+
 a {
   text-decoration: none;
   color: #007bff; /* Bootstrap primary color */
