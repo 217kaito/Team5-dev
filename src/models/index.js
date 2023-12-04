@@ -14,6 +14,7 @@ const sequelize = new Sequelize({
 
 Model.Thread = require("./thread")(sequelize);
 Model.Message = require("./message")(sequelize);
+Model.User = require("./user")(sequelize);
 // Add more models here...
 // require('./models/item'),
 

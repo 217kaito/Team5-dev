@@ -12,8 +12,9 @@ module.exports = (sequelize) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    ip: {
-      type: DataTypes.INTEGER,
+    userId: {
+      type: DataTypes.STRING,
+      allowNull: null,
     },
     content: {
       type: DataTypes.STRING,
@@ -36,6 +37,10 @@ module.exports = (sequelize) => {
     Message.belongsTo(models.Thread, {
       foreignKey: "threadId", // message.threadId のカラム名を指定する
       targetKey: "id", // 対応する thread テーブルのカラム名を指定する
+    });
+    Message.belongsTo(models.User, {
+      foreignKey: "userId", // message.ip のカラム名を指定する
+      targetKey: "id", // 対応する User テーブルのカラム名を指定する
     });
   };
   Message.sync();

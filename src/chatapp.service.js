@@ -1,28 +1,28 @@
-"use strict";
-
 // src/chatapp.service.js
 "use strict";
 const { models } = require("./models");
 
 // メッセージの作成
-const createPost = async (messageIp, messageThreadId, messageContent) => {
+const createPost = async (userid, messageThreadId, messageContent) => {
   await models.message.create({
-    ip: messageIp,
+    userId: userid,
     content: messageContent,
     threadId: messageThreadId,
   });
-  await models.thread.findOne({ id : messageThreadId }).then(thread => {
-    thread.updatedAt = new Date();
-    thread.changed("updatedAt", true);
-    thread.save();
-  });
+  await models.thread
+    .findOne({ where: { id: messageThreadId } })
+    .then((thread) => {
+      thread.updatedAt = new Date();
+      thread.changed("updatedAt", true);
+      thread.save();
+    });
 };
 
 // スレッドの作成
-const createThread = async (threadIp, threadTitle) => {
+const createThread = async (userid, threadTitle) => {
   await models.thread.create({
-    ip: threadIp,
     title: threadTitle,
+    userId: userid,
   });
 };
 
@@ -36,8 +36,25 @@ const getThreads = async () => {
 const getPostsByThreadId = async (threadid) => {
   const messages = await models.message.findAll({
     where: { threadId: threadid },
+    include: models.user,
   });
   return messages;
+};
+
+// ユーザ情報を取得
+const getUser = async (userId) => {
+  const user = await models.user.findOne({ where: { id: userId } });
+  return user;
+};
+
+// ユーザ情報を作成(ユーザ認証するのかな？)
+const createUser = async (userId, userIp, userName, userPassword) => {
+  await models.user.create({
+    id: userId,
+    ip: userIp,
+    username: userName,
+    password: userPassword,
+  });
 };
 
 module.exports = {
@@ -45,4 +62,6 @@ module.exports = {
   createThread,
   getThreads,
   getPostsByThreadId,
+  createUser,
+  getUser,
 };
