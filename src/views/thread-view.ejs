@@ -33,7 +33,9 @@
 <body>
     <div class="container">
         <h1>Thread View</h1>
-        <a href="/logout">ログアウト</a>
+        <div class="logout">
+           <a href="/logout">ログアウト</a>
+        </div>
         <a href="/threads">Back to Thread List</a>
         <ul>
             <% posts.forEach(post => { %>
@@ -42,7 +44,7 @@
                         <i class="bi bi-file-person"></i>
                     </div>
                     <div class="message-content">
-                        <%= post.ip %>  <%= post.createdAt.toLocaleString("ja-JP", { weekday: "long", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }) %>
+                        <%= post.user.username %> : <%= post.createdAt.toLocaleString("ja-JP", { weekday: "long", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }) %>
                     </div>
                 </li>
                 <li class="list2">

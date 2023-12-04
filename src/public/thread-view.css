@@ -24,6 +24,12 @@ li .message-content {
     flex-grow: 1;
 }
 
+.logout {
+    text-align: right;
+    position: relative; /* 今の位置を基準 */
+    bottom: 40px; /* 上から10px */
+}
+
 .list1 {
     display: flex;
     align-items: center;
