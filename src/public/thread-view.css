@@ -1,69 +1,69 @@
 /* src/public/thread-view.css */
 
 body {
-    background-color: #712cf9;
-    color: #fff;
+  background-color: #712cf9;
+  color: #fff;
 }
 
 ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 a {
-    color: #28a745;
+  color: #28a745;
 }
 
 /* Style for the icon */
 li .message-icon {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 /* Style for the message content */
 li .message-content {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .logout {
-    text-align: right;
-    position: relative; /* 今の位置を基準 */
-    bottom: 40px; /* 上から10px */
+  text-align: right;
+  position: relative; /* 今の位置を基準 */
+  bottom: 40px; /* 上から10px */
 }
 
 .list1 {
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-    background-color: #000;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  background-color: #000;
 }
 
 .list2 {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-    background-color: #000;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  background-color: #000;
 }
 
 /* Style for the New Post label */
 label[for="content"] {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 /* Style for the Post button */
 button {
-    background-color: #28a745; /* ボタンの背景色を緑に設定 */
-    color: #fff; /* ボタンの文字色を白に設定 */
-    padding: 8px 16px; /* ボタンの余白を追加 */
-    border: none; /* ボーダーをなくす */
-    border-radius: 4px; /* ボーダーの角を丸くする */
-    cursor: pointer; /* カーソルをポインターに変更 */
-    transition: background-color 0.3s ease; /* 背景色の変化を滑らかにするアニメーション */
+  background-color: #28a745; /* ボタンの背景色を緑に設定 */
+  color: #fff; /* ボタンの文字色を白に設定 */
+  padding: 8px 16px; /* ボタンの余白を追加 */
+  border: none; /* ボーダーをなくす */
+  border-radius: 4px; /* ボーダーの角を丸くする */
+  cursor: pointer; /* カーソルをポインターに変更 */
+  transition: background-color 0.3s ease; /* 背景色の変化を滑らかにするアニメーション */
 }
 
 /* Hover state for the Post button */
 button:hover {
-    background-color: #218838; /* ホバー時の背景色を変更 */
+  background-color: #218838; /* ホバー時の背景色を変更 */
 }

@@ -1,66 +1,78 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-<head> 
+  <head>
     <!-- Meta tags and title remain unchanged -->
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thread View</title>
-    
+
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
 
     <!-- Bootstrap Icons CSS (v1.11.2) via CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
 
-    <link rel="stylesheet" href="/thread-view.css">
+    <link rel="stylesheet" href="/thread-view.css" />
 
     <!-- 中央揃えのためのカスタムスタイル -->
     <style>
-        body {
-            display: flex;
-            min-height: 100vh;
-            align-items: start;
-            justify-content: center;
-            margin: 0;
-        }
+      body {
+        display: flex;
+        min-height: 100vh;
+        align-items: start;
+        justify-content: center;
+        margin: 0;
+      }
 
-        .container {
-            max-width: 800px;
-        }
+      .container {
+        max-width: 800px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1>Thread View</h1>
-        <div class="logout">
-           <a href="/logout">ログアウト</a>
-        </div>
-        <a href="/threads">Back to Thread List</a>
-        <ul>
-            <% posts.forEach(post => { %>
-                <li class="list1">
-                    <div class="message-icon">
-                        <i class="bi bi-file-person"></i>
-                    </div>
-                    <div class="message-content">
-                        <%= post.user.username %> : <%= post.createdAt.toLocaleString("ja-JP", { weekday: "long", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }) %>
-                    </div>
-                </li>
-                <li class="list2">
-                    <div><%= post.content %></div>
-                </li>
-            <% }); %>
-        </ul>
+      <h1>Thread View</h1>
+      <div class="logout">
+        <a href="/logout">ログアウト</a>
+      </div>
+      <a href="/threads">Back to Thread List</a>
+      <ul>
+        <% posts.forEach(post => { %>
+        <li class="list1">
+          <div class="message-icon">
+            <i class="bi bi-file-person"></i>
+          </div>
+          <div class="message-content">
+            <%= post.user.username %> : <%=
+            post.createdAt.toLocaleString("ja-JP", { weekday: "long", year:
+            "numeric", month: "2-digit", day: "2-digit", hour: "2-digit",
+            minute: "2-digit" }) %>
+          </div>
+        </li>
+        <li class="list2">
+          <div><%= post.content %></div>
+        </li>
+        <% }); %>
+      </ul>
 
-        <label for="content">New Post:</label>
-        <form action="/threads/<%= threadId %>/post" method="post">
-            <textarea id="content" name="content" rows="4" cols="50"></textarea>
-            <br />
-            <button type="submit">Post</button>
-        </form>
+      <label for="content">New Post:</label>
+      <form action="/threads/<%= threadId %>/post" method="post">
+        <textarea id="content" name="content" rows="4" cols="50"></textarea>
+        <br />
+        <button type="submit">Post</button>
+      </form>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    ></script>
+  </body>
 </html>
