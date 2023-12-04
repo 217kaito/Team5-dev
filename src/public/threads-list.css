@@ -9,7 +9,8 @@ body {
   font-weight: bold; /* フォントを太くする */
 }
 
-.container1, .container2 {
+.container1,
+.container2 {
   background-color: #28043c; /* 背景の最も濃い紫と同じ色に設定 */
   margin-left: 5px;
   margin-right: 5px;
