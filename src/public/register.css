@@ -38,6 +38,16 @@ a {
   color: #007bff; /* Bootstrap primary color */
 }
 
+.h3-mb-3-fw-normal {
+  color: #fcf7f8;
+}
+
+.login {
+  text-align: left;
+  position: relative; /* 今の位置を基準 */
+  top: 20px; /* 上から10px */
+}
+
 a:hover {
   color: #0056b3; /* Bootstrap primary hover color */
 }
