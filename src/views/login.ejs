@@ -2,38 +2,61 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/login.css" />
     <title>Login</title>
   </head>
-  <body>
-    <h1>Login</h1>
-    <a href="/register">登録</a>
-    <form action="/login" method="post">
-      <div>
-        <label for="employeeId">社員ID</label>
-        <input
-          id="employeeId"
-          name="username"
-          type="text"
-          pattern="[a-z]{2}[0-9]{6}"
-          autocomplete="on"
-          required
-        />
-      </div>
-      <div>
-        <label for="current-password">Password</label>
-        <input
-          id="current-password"
-          name="password"
-          type="password"
-          minlength="8"
-          maxlength="16"
-          autocomplete="current-password"
-          required
-        />
-      </div>
-      <div>
-        <button type="submit">Sign in</button>
-      </div>
-    </form>
+  <body class="text-center">
+    <main class="form-signin">
+      <form action="/login" method="post">
+        <h1 class="h3 mb-3 fw-normal">Login</h1>
+        <a href="/register">登録</a>
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control"
+            id="employeeId"
+            name="username"
+            placeholder="社員ID"
+            pattern="[a-z]{2}[0-9]{6}"
+            autocomplete="on"
+            required
+          />
+          <label for="employeeId">社員ID</label>
+        </div>
+        <div class="form-floating">
+          <input
+            type="password"
+            class="form-control"
+            id="current-password"
+            name="password"
+            placeholder="Password"
+            minlength="8"
+            maxlength="16"
+            autocomplete="current-password"
+            required
+          />
+          <label for="current-password">Password</label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">
+          Sign in
+        </button>
+      </form>
+    </main>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"
+      defer
+    ></script>
   </body>
 </html>
