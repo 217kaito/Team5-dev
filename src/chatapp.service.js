@@ -52,7 +52,7 @@ const createUser = async (userId, userIp, userName, userPassword) => {
   // 同じidがあれば作成しない
   const user = await getUser(userId);
   if (user) {
-    return;
+    return false;
   }
   await models.user.create({
     id: userId,
@@ -60,6 +60,7 @@ const createUser = async (userId, userIp, userName, userPassword) => {
     username: userName,
     password: userPassword,
   });
+  return true;
 };
 
 module.exports = {
