@@ -1,0 +1,53 @@
+/* login.css */
+
+body {
+  background-color: #5e3e7b; /* Bootstrap background color */
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+.form-floating {
+  margin-bottom: 10px;
+}
+
+.form-floating input {
+  height: calc(1.5em + 0.75rem + 2px);
+}
+
+.form-signin h1 {
+  margin-bottom: 20px;
+}
+
+.btn-primary {
+  background-color: #007bff; /* Bootstrap primary color */
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3; /* Bootstrap primary hover color */
+  border-color: #0056b3;
+}
+
+a {
+  text-decoration: none;
+  color: #007bff; /* Bootstrap primary color */
+}
+
+.h3-mb-3-fw-normal {
+  color: #fcf7f8;
+}
+
+.login {
+  text-align: left;
+  position: relative; /* 今の位置を基準 */
+  top: 20px; /* 上から10px */
+}
+
+a:hover {
+  color: #0056b3; /* Bootstrap primary hover color */
+}
