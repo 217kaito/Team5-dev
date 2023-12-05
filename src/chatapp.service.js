@@ -49,6 +49,11 @@ const getUser = async (userId) => {
 
 // ユーザ情報を作成(ユーザ認証するのかな？)
 const createUser = async (userId, userIp, userName, userPassword) => {
+  // 同じidがあれば作成しない
+  const user = await getUser(userId);
+  if (user) {
+    return;
+  }
   await models.user.create({
     id: userId,
     ip: userIp,
