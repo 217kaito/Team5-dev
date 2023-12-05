@@ -1,0 +1,37 @@
+/* 背景をグラデーションにする */
+body {
+  background: radial-gradient(circle, #603c8e 0%, #28043c 100%);
+}
+
+/* タイトルを装飾 */
+.list-group-item a {
+  color: blue; /* リンクの色を設定 */
+  font-weight: bold; /* フォントを太くする */
+}
+
+.container1,
+.container2 {
+  background-color: #28043c; /* 背景の最も濃い紫と同じ色に設定 */
+  margin-left: 5px;
+  margin-right: 5px;
+  border-radius: 10px; /* 角を丸める */
+}
+
+.logout {
+  text-align: right;
+  position: relative; /* 今の位置を基準 */
+  bottom: 40px;
+  right: 10px;
+}
+
+/* スレッド作成フォームを調整 */
+.form-label,
+.form-control,
+.btn {
+  margin-top: 10px; /* 各要素の上部に余白を追加 */
+}
+
+/* スレッドとスレッドの間にマージンを追加 */
+.list-group-item {
+  margin-bottom: 10px;
+}
