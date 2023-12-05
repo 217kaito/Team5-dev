@@ -81,16 +81,23 @@ const run = () => {
 
   app.post("/register", async (req, res) => {
     const ip = req.ip;
-    await createUser(
+    const user =await createUser(
       req.body.employeeid,
       ip,
       req.body.username,
       req.body.password,
     );
-    res.redirect("/login");
+    if (user===true){
+       res.redirect("/login");
+    }
+    else{
+      res.redirect("/register");
+    }
   });
 
-  app.get("/login", function (req, res, next) {
+  app.get("/login", async function (req, res, next) {
+    const user = await models.user.findAll();
+    console.log(user);
     res.render("login");
   });
 
