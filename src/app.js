@@ -75,7 +75,9 @@ const run = () => {
 
   app.use("/threads", checkAuth, router);
 
-  app.get("/register", (req, res) => {
+  app.get("/register", async (req, res) => {
+    const user = await models.user.findAll();
+    console.log(user);
     res.render("register");
   });
 
