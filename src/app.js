@@ -81,16 +81,15 @@ const run = () => {
 
   app.post("/register", async (req, res) => {
     const ip = req.ip;
-    const user =await createUser(
+    const user = await createUser(
       req.body.employeeid,
       ip,
       req.body.username,
       req.body.password,
     );
-    if (user===true){
-       res.redirect("/login");
-    }
-    else{
+    if (user === true) {
+      res.redirect("/login");
+    } else {
       res.redirect("/register");
     }
   });
