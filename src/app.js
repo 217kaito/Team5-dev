@@ -78,32 +78,28 @@ const run = () => {
     res.render("register");
   });
 
-  app.post("/register", async (req, res) => {
-    const id = req.body.employeeid;
-    const ip = req.ip;
-    const username = req.body.username;
-    const password = req.body.password;
+  app.post("/register", (req, res, next) => {
+    (async () => {
+      const id = req.body.employeeid;
+      const ip = req.ip;
+      const username = req.body.username;
+      const password = req.body.password;
 
-    if (id === "" || username === "" || password === "") {
-      res.status(400).send("invalid parameter");
-      return;
-    }
-    if (await getUser(id)) {
-      res.status(409).send("userId already exists");
-      return;
-    }
-    // TODO: usernameの制約を追加する
-    // TODO: passwordの制約を追加する
+      if (id === "" || username === "" || password === "") {
+        return res.status(400).send("invalid parameter");
+      }
+      if (await getUser(id)) {
+        return res.status(409).send("userId already exists");
+      }
+      // TODO: usernameの制約を追加する
+      // TODO: passwordの制約を追加する
 
-    createUser(id, ip, username, password).then(() => {
+      await createUser(id, ip, username, password);
       res.redirect("/login");
-    }).catch((err) => {
-      console.error(err);
-      res.status(500).send("Internal Server Error");
-    });
+    })().catch(next);
   });
 
-  app.get("/login", async function (req, res) {
+  app.get("/login", function (req, res) {
     res.render("login");
   });
 
