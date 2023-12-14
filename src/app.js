@@ -7,10 +7,9 @@ const { router } = require("./chatapp.controller");
 const methodOverride = require("method-override");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
-const { models } = require("./models");
 const session = require("express-session");
 const PORT = 3000;
-const { createUser } = require("./chatapp.service");
+const { createUser, getUser } = require("./chatapp.service");
 
 const run = () => {
   const app = express();
@@ -33,8 +32,8 @@ const run = () => {
   app.use(passport.session());
 
   passport.use(
-    new LocalStrategy(async function (Userid, password, done) {
-      const user = await models.user.findOne({ where: { id: Userid } });
+    new LocalStrategy(async function (userId, password, done) {
+      const user = await getUser(userId);
       if (!user) {
         return done(null, false);
       }
@@ -80,23 +79,31 @@ const run = () => {
   });
 
   app.post("/register", async (req, res) => {
+    const id = req.body.employeeid;
     const ip = req.ip;
-    const user = await createUser(
-      req.body.employeeid,
-      ip,
-      req.body.username,
-      req.body.password,
-    );
-    if (user === true) {
-      res.redirect("/login");
-    } else {
-      res.redirect("/register");
+    const username = req.body.username;
+    const password = req.body.password;
+
+    if (id === "" || username === "" || password === "") {
+      res.status(400).send("invalid parameter");
+      return;
     }
+    if (await getUser(id)) {
+      res.status(409).send("userId already exists");
+      return;
+    }
+    // TODO: usernameの制約を追加する
+    // TODO: passwordの制約を追加する
+
+    createUser(id, ip, username, password).then(() => {
+      res.redirect("/login");
+    }).catch((err) => {
+      console.error(err);
+      res.status(500).send("Internal Server Error");
+    });
   });
 
-  app.get("/login", async function (req, res, next) {
-    const user = await models.user.findAll();
-    console.log(user);
+  app.get("/login", async function (req, res) {
     res.render("login");
   });
 
