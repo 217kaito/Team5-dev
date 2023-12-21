@@ -44,7 +44,6 @@ router.get("/", async (req, res) => {
 router.get("/:threadId", async (req, res) => {
   const threadId = req.params.threadId;
   const posts = await getPostsByThreadId(threadId);
-  const thread = await getThreadByThreadId(threadId);
   res.render("thread-view", { posts, threadId });
 });
 
