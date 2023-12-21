@@ -4,7 +4,7 @@ const {
   createThread,
   getThreads,
   getPostsByThreadId,
-  getThreadByThreadId,
+  // getThreadByThreadId,
   // getUser,
   // createUser,
 } = require("./chatapp.service");
