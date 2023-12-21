@@ -47,14 +47,9 @@
           />
 
           <!-- 新しい要素: カテゴリの選択用ボタン -->
-          <label
-            for="threadCategory"
-            class="form-label"
-            style="color: silver; font-weight: bold"
-            >カテゴリ:</label
-          >
           <div class="btn-group">
             <button
+              id="category-button"
               type="button"
               class="btn btn-secondary dropdown-toggle"
               data-bs-toggle="dropdown"
@@ -107,6 +102,7 @@
       // カテゴリを選択したときにフォームにセットする関数
       function selectCategory(category) {
         document.getElementById("threadCategory").value = category;
+        document.getElementById("category-button").innerText = category;
       }
     </script>
   </body>
