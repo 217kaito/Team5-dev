@@ -10,6 +10,8 @@ const LocalStrategy = require("passport-local");
 const session = require("express-session");
 const PORT = 3000;
 const { createUser, getUser } = require("./chatapp.service");
+const bcrypt = require("bcrypt");
+const passwordSaltRounds = 10;
 
 const run = () => {
   const app = express();
@@ -32,17 +34,19 @@ const run = () => {
   app.use(passport.session());
 
   passport.use(
-    new LocalStrategy(async function (userId, password, done) {
-      const user = await getUser(userId);
-      if (!user) {
-        return done(null, false);
-      }
-      if (!(user.password === password)) {
-        return done(null, false);
-      }
-      return done(null, user);
-    }),
-  );
+    new LocalStrategy(function (userId, password, done) {
+      (async () => {
+        const user = await getUser(userId);
+        if (!user) {
+          return done(null, false);
+        }
+        if (await bcrypt.compare(password, user.passwordHash) === false) {
+          return done(null, false);
+        }
+        done(null, user);
+        console.log("hogehoge")
+      })().catch(done);
+    }));
 
   passport.serializeUser(function (user, cb) {
     process.nextTick(function () {
@@ -94,7 +98,8 @@ const run = () => {
       // TODO: usernameの制約を追加する
       // TODO: passwordの制約を追加する
 
-      await createUser(id, ip, username, password);
+      const passwordHash = await bcrypt.hash(password, passwordSaltRounds);
+      await createUser(id, ip, username, passwordHash);
       res.redirect("/login");
     })().catch(next);
   });

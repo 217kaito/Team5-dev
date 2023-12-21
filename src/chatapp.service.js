@@ -48,12 +48,12 @@ const getUser = async (userId) => {
 };
 
 // ユーザ情報を作成(ユーザ認証するのかな？)
-const createUser = async (userId, userIp, userName, userPassword) => {
+const createUser = async (userId, userIp, userName, userPasswordHash) => {
   await models.user.create({
     id: userId,
     ip: userIp,
     username: userName,
-    password: userPassword,
+    passwordHash: userPasswordHash,
   });
 };
 
