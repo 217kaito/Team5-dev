@@ -40,13 +40,13 @@ const run = () => {
         if (!user) {
           return done(null, false);
         }
-        if (await bcrypt.compare(password, user.passwordHash) === false) {
+        if ((await bcrypt.compare(password, user.passwordHash)) === false) {
           return done(null, false);
         }
         done(null, user);
-        console.log("hogehoge")
       })().catch(done);
-    }));
+    }),
+  );
 
   passport.serializeUser(function (user, cb) {
     process.nextTick(function () {
