@@ -80,9 +80,13 @@ const run = () => {
     }
     const stat = req.query.stat;
     if (stat === "dup") {
-      return res.status(409).render("register", { message: { error: "ユーザIDが重複しています" } });
+      return res
+        .status(409)
+        .render("register", { message: { error: "ユーザIDが重複しています" } });
     } else if (stat === "invalid") {
-      return res.status(400).render("register", { message: { error: "入力値が不正です" } });
+      return res
+        .status(400)
+        .render("register", { message: { error: "入力値が不正です" } });
     } else {
       return res.render("register", { message: {} });
     }
@@ -96,7 +100,7 @@ const run = () => {
       const password = req.body.password;
 
       if (id === "" || username === "" || password === "") {
-        return res.redirect("/register?stat=invalid")
+        return res.redirect("/register?stat=invalid");
       }
       if (await getUser(id)) {
         return res.redirect("/register?stat=dup");
@@ -115,7 +119,9 @@ const run = () => {
     }
     const stat = req.query.stat;
     if (stat === "failed") {
-      return res.render("login", { message: { error: "ログインに失敗しました" } });
+      return res.render("login", {
+        message: { error: "ログインに失敗しました" },
+      });
     } else if (stat === "loggedout") {
       return res.render("login", { message: { info: "ログアウトしました" } });
     } else if (stat === "registered") {
