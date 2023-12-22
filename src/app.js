@@ -62,7 +62,7 @@ const run = () => {
     if (req.isAuthenticated()) {
       next();
     } else {
-      res.redirect("/login");
+      res.redirect("/login?stat=requirelogin");
     }
   };
 
@@ -75,7 +75,17 @@ const run = () => {
   app.use("/threads", checkAuth, router);
 
   app.get("/register", (req, res) => {
-    res.render("register");
+    if (req.isAuthenticated()) {
+      return res.redirect("/threads");
+    }
+    const stat = req.query.stat;
+    if (stat === "dup") {
+      return res.status(409).render("register", { message: { error: "ユーザIDが重複しています" } });
+    } else if (stat === "invalid") {
+      return res.status(400).render("register", { message: { error: "入力値が不正です" } });
+    } else {
+      return res.render("register", { message: {} });
+    }
   });
 
   app.post("/register", (req, res, next) => {
@@ -86,28 +96,42 @@ const run = () => {
       const password = req.body.password;
 
       if (id === "" || username === "" || password === "") {
-        return res.status(400).send("invalid parameter");
+        return res.redirect("/register?stat=invalid")
       }
       if (await getUser(id)) {
-        return res.status(409).send("userId already exists");
+        return res.redirect("/register?stat=dup");
       }
       // TODO: usernameの制約を追加する
       // TODO: passwordの制約を追加する
 
       await createUser(id, ip, username, password);
-      res.redirect("/login");
+      res.redirect("/login?stat=registered");
     })().catch(next);
   });
 
   app.get("/login", function (req, res) {
-    res.render("login");
+    if (req.isAuthenticated()) {
+      return res.redirect("/threads");
+    }
+    const stat = req.query.stat;
+    if (stat === "failed") {
+      return res.render("login", { message: { error: "ログインに失敗しました" } });
+    } else if (stat === "loggedout") {
+      return res.render("login", { message: { info: "ログアウトしました" } });
+    } else if (stat === "registered") {
+      return res.render("login", { message: { info: "登録が完了しました" } });
+    } else if (stat === "requirelogin") {
+      return res.render("login", { message: { error: "ログインが必要です" } });
+    } else {
+      return res.render("login", { message: {} });
+    }
   });
 
   app.post(
     "/login",
     passport.authenticate("local", {
       successRedirect: "/threads",
-      failureRedirect: "/login",
+      failureRedirect: "/login?stat=failed",
     }),
   );
 
@@ -116,7 +140,7 @@ const run = () => {
       if (err) {
         return next(err);
       }
-      res.redirect("/threads");
+      res.redirect("/login?stat=loggedout");
     });
   });
 
