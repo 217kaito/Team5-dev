@@ -38,7 +38,10 @@
   </head>
   <body>
     <div class="container">
-      <h1>Thread View</h1>
+      <div class="thread-info">
+        <h1><%= thread.title %></h1>
+        <p><strong>カテゴリ:</strong> <%= thread.category %></p>
+      </div>
       <div class="logout">
         <a href="/logout">ログアウト</a>
       </div>
