@@ -40,9 +40,10 @@
     <div class="container">
       <h1>Thread View</h1>
       <div class="logout">
-        <a href="/logout">ログアウト</a>
+        <form action="/logout" method="get">
+          <button type="submit" class="btn btn-danger">ログアウト</button>
       </div>
-      <a href="/threads">Back to Thread List</a>
+      <a href="/threads" class="btn btn-primary">スレッドリストに戻る</a>
       <ul>
         <% posts.forEach(post => { %>
         <li class="list1">
