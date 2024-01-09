@@ -99,14 +99,18 @@ const run = () => {
       const username = req.body.username;
       const password = req.body.password;
 
-      if (id === "" || username === "" || password === "") {
-        return res.redirect("/register?stat=invalid");
+      if (!id.match(/^[a-z]{2}[0-9]{6}$/)) {
+        return res.status(400).send("invalid id");
+      }
+      if (!password.match(/^.{,16}$/)) {
+        return res.status(400).send("invalid password");
+      }
+      if (!username.match(/^.{8,16}$/)) {
+        return res.status(400).send("invalid username");
       }
       if (await getUser(id)) {
         return res.redirect("/register?stat=dup");
       }
-      // TODO: usernameの制約を追加する
-      // TODO: passwordの制約を追加する
 
       await createUser(id, ip, username, password);
       res.redirect("/login?stat=registered");
