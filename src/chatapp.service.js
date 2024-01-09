@@ -19,11 +19,20 @@ const createPost = async (userid, messageThreadId, messageContent) => {
 };
 
 // スレッドの作成
-const createThread = async (userid, threadTitle) => {
+const createThread = async (userid, threadTitle, threadCategory) => {
   await models.thread.create({
     title: threadTitle,
     userId: userid,
+    category: threadCategory,
   });
+};
+
+// スレッドIDからスレッド情報を取得
+const getThreadByThreadId = async (threadId) => {
+  const thread = await models.thread.findOne({
+    where: { id: threadId },
+  });
+  return thread;
 };
 
 // 全てのスレッドを取得
@@ -52,25 +61,13 @@ const getUserbyName = async (userName) => {
   return user;
 };
 
-// ユーザ情報を作成
-const createUser = async (userId, userIp, userName, userPassword) => {
-  // 同じidがあれば作成しない
-  const userbyid = await getUserbyId(userId);
-  // 同じユーザネームがあれば作成しない
-  const userbyname = await getUserbyName(userName);
-  if (userbyid) {
-    return false;
-  }
-  if (userbyname) {
-    return false;
-  }
+const createUser = async (userId, userIp, userName, userPasswordHash) => {
   await models.user.create({
     id: userId,
     ip: userIp,
     username: userName,
-    password: userPassword,
+    passwordHash: userPasswordHash,
   });
-  return true;
 };
 
 // ユーザ情報を更新
@@ -96,6 +93,7 @@ module.exports = {
   createThread,
   getThreads,
   getPostsByThreadId,
+  getThreadByThreadId,
   createUser,
   getUserbyId,
   getUserbyName,

@@ -13,7 +13,7 @@ const PromiseRouter = require("express-promise-router");
 
 const router = PromiseRouter();
 
-// HTTP POSTメソッドに対応したエンドポイントの処理を定義
+// HTTP POSTメソッドに対応したエンドポイントの処理を定義https://github.com/meiji-software-engineering/ex-04-team5/issues/90
 // フォームからの入力を用いて新しいメッセージを作成するエンドポイント
 router.post("/:threadId/post", async (req, res) => {
   // const ip = req.ip;
@@ -29,7 +29,8 @@ router.post("/:threadId/post", async (req, res) => {
 router.post("/create", async (req, res) => {
   const id = req.user.id;
   const title = req.body.threadTitle;
-  await createThread(id, title);
+  const category = req.body.threadCategory;
+  await createThread(id, title, category);
   res.redirect("/threads"); // スレッド一覧ページにリダイレクト
 });
 
@@ -64,7 +65,8 @@ router.get("/", async (req, res) => {
 router.get("/:threadId", async (req, res) => {
   const threadId = req.params.threadId;
   const posts = await getPostsByThreadId(threadId);
-  res.render("thread-view", { posts, threadId });
+  const thread = await getThreadByThreadId(threadId);
+  res.render("thread-view", { posts, threadId, thread });
 });
 
 module.exports = {
