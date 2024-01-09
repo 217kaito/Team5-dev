@@ -17,7 +17,9 @@
       <div class="container1">
         <h1 class="mt-5" style="color: silver">Thread List</h1>
         <div class="logout">
-          <a href="/logout">ログアウト</a>
+          <form action="/logout" method="get">
+            <button type="submit" class="btn btn-danger">ログアウト</button>
+          </form>
         </div>
         <ul class="list-group">
           <% threads.forEach(thread => { %>
