@@ -2,23 +2,21 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  const Thread = sequelize.define("thread", {
+  const Reply = sequelize.define("reply", {
     // The following specification of the 'id' attribute could be omitted
     // since it is the default.
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: true,
       primaryKey: true,
       autoIncrement: true,
     },
-    userId: {
-      type: DataTypes.STRING,
-      allowNull: null,
+    messageId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
-    title: {
-      type: DataTypes.STRING,
-      allowNull: null,
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     content: {
       type: DataTypes.STRING,
@@ -31,22 +29,19 @@ module.exports = (sequelize) => {
       allowNull: false,
       type: DataTypes.DATE,
     },
-    category: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
   });
 
-  // thread : message で 1:n の関係であることを示す
-  Thread.associate = (models) => {
-    Thread.hasMany(models.Message, {
-      foreignKey: "threadId", // 対象 (message テーブル) のカラム名を指定する
+  // message : reply で 1:n の関係であることを示す
+  Reply.associate = (models) => {
+    Reply.belongsTo(models.Message, {
+      foreignKey: "messageId", // 対象 (message テーブル) のカラム名を指定する
+      targetKey: "id",
     });
-    Thread.belongsTo(models.User, {
+    Reply.belongsTo(models.User, {
       foreignKey: "userId", // user.id のカラム名を指定する
       targetKey: "id", // 対応する User テーブルのカラム名を指定する
     });
   };
-  Thread.sync();
-  return Thread;
+  Reply.sync();
+  return Reply;
 };
