@@ -3,9 +3,9 @@ const {
   createPost,
   createThread,
   getThreads,
-  getPostsByThreadId,
   getThreadByThreadId,
-  // getThreadByThreadId,
+  getPostsByThreadId,
+  updateUser,
   // getUser,
   // createUser,
 } = require("./chatapp.service");
@@ -33,6 +33,27 @@ router.post("/create", async (req, res) => {
   const category = req.body.threadCategory;
   await createThread(id, title, category);
   res.redirect("/threads"); // スレッド一覧ページにリダイレクト
+});
+
+router.get("/setting", async function (req, res) {
+  res.render("setting");
+});
+
+router.post("/setting", async function (req, res) {
+  const user = await updateUser(
+    req.user.id,
+    req.body.username,
+    req.body.userpassword,
+  );
+  if (user === true) {
+    res.redirect("/threads");
+  } else {
+    res.redirect("/threads/setting/error");
+  }
+});
+
+router.get("/setting/error", async function (req, res) {
+  res.render("setting-error");
 });
 
 // スレッド一覧を表示するエンドポイント

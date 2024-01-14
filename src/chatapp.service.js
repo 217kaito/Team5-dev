@@ -51,12 +51,16 @@ const getPostsByThreadId = async (threadid) => {
 };
 
 // ユーザ情報を取得
-const getUser = async (userId) => {
+const getUserById = async (userId) => {
   const user = await models.user.findOne({ where: { id: userId } });
   return user;
 };
 
-// ユーザ情報を作成(ユーザ認証するのかな？)
+const getUserByName = async (userName) => {
+  const user = await models.user.findOne({ where: { username: userName } });
+  return user;
+};
+
 const createUser = async (userId, userIp, userName, userPasswordHash) => {
   await models.user.create({
     id: userId,
@@ -66,6 +70,24 @@ const createUser = async (userId, userIp, userName, userPasswordHash) => {
   });
 };
 
+// ユーザ情報を更新
+const updateUser = async (userId, userName, userPassword) => {
+  // 同じユーザネームがあれば作成しない
+  const userbyname = await getUserByName(userName);
+  console.log(userbyname);
+  if (userbyname) {
+    return false;
+  }
+  await models.user.update(
+    {
+      username: userName,
+      userpassword: userPassword,
+    },
+    { where: { id: userId } },
+  );
+  return true;
+};
+
 module.exports = {
   createPost,
   createThread,
@@ -73,5 +95,7 @@ module.exports = {
   getPostsByThreadId,
   getThreadByThreadId,
   createUser,
-  getUser,
+  getUserById,
+  getUserByName,
+  updateUser,
 };
