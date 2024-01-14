@@ -34,15 +34,20 @@ li .message-content {
 .list1 {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   border-bottom: 1px solid #ddd;
   padding-bottom: 10px;
   background-color: #000;
 }
 
+.list1 .delete-button-container {
+  display: flex;
+  align-items: center;
+}
+
 .list2 {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
   border-bottom: 1px solid #ddd;
   padding-bottom: 10px;
   background-color: #000;
@@ -67,4 +72,9 @@ button {
 /* Hover state for the Post button */
 button:hover {
   background-color: #218838; /* ホバー時の背景色を変更 */
+}
+
+/* 返信ボタンにマージンを追加 */
+.navigation-button {
+  margin-bottom: 10px;
 }

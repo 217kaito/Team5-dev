@@ -76,56 +76,56 @@
             "numeric", month: "2-digit", day: "2-digit", hour: "2-digit",
             minute: "2-digit" }) %>
           </div>
+          <% if(post.user.id === userid) { %>
+            <div class="delete-button-container">
+              <form
+                action="/threads/<%= thread.id %>/post/<%= post.id %>?_method=delete"
+                method="post"
+              >
+                <button type="submit">削除</button>
+              </form>
+            </div>
+            <% } %>
         </li>
         <li class="list2">
           <div><%= post.content %></div>
-          <% if(post.user.id === userid) { %>
-          <div>
-            <form
-              action="/threads/<%= thread.id %>/post/<%= post.id %>?_method=delete"
-              method="post"
-            >
-              <button type="submit">削除</button>
-            </form>
-          </div>
-          <% } %>
-          <button
-            class="navigation-button"
-            id="showFormButton-<%= post.id %>"
-            onclick="showFormButton(<%= post.id %>)"
-          >
-            返信
-          </button>
-          <!-- 以下、返信フォーム -->
-          <div
-            class="form-container"
-            id="inputForm-<%= post.id %>"
-            style="display: none"
-          >
-            <label for="replycontent">返信:</label>
-            <form
-              action="/threads/<%= thread.id %>/post/<%= post.id %>"
-              method="post"
-            >
-              <textarea
-                id="replycontent"
-                name="replycontent"
-                rows="4"
-                cols="50"
-              ></textarea>
-              <br />
-              <button type="submit">投稿</button>
-              <button
-                type="submit"
-                class="navigation-button"
-                id="closeFormButton-<%= post.id %>"
-                onclick="closeFormButton(<%= post.id %>)"
-              >
-                閉じる
-              </button>
-            </form>
-          </div>
         </li>
+        <button
+        class="navigation-button"
+        id="showFormButton-<%= post.id %>"
+        onclick="showFormButton(<%= post.id %>)"
+      >
+        返信
+      </button>
+      <!-- 以下、返信フォーム -->
+      <div
+        class="form-container"
+        id="inputForm-<%= post.id %>"
+        style="display: none"
+      >
+        <label for="replycontent">返信:</label>
+        <form
+          action="/threads/<%= thread.id %>/post/<%= post.id %>"
+          method="post"
+        >
+          <textarea
+            id="replycontent"
+            name="replycontent"
+            rows="4"
+            cols="50"
+          ></textarea>
+          <br />
+          <button type="submit">投稿</button>
+          <button
+            type="submit"
+            class="navigation-button"
+            id="closeFormButton-<%= post.id %>"
+            onclick="closeFormButton(<%= post.id %>)"
+          >
+            閉じる
+          </button>
+        </form>
+      </div>
         <% if (post.replies && post.replies.length > 0) { %>
         <ul id="repliesList">
           <% post.replies.forEach(reply => { %>
