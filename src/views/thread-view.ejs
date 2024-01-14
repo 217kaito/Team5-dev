@@ -58,7 +58,8 @@
         <p><strong>カテゴリ:</strong> <%= thread.category %></p>
       </div>
       <div class="logout">
-        <a href="/logout">ログアウト</a>
+        <form action="/logout" method="get">
+          <button type="submit" class="btn btn-danger">ログアウト</button>
       </div>
       <div class="setting">
         <a href="/threads/setting">設定</a>
