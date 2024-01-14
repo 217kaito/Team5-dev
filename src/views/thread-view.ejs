@@ -131,30 +131,31 @@
         <% if (post.replies && post.replies.length > 0) { %>
         <ul id="repliesList">
           <% post.replies.forEach(reply => { %>
-          <li data-reply-id="<%= reply.id %>"></li>
-          <li class="list3">
-            <div class="message-icon">
-              <i class="bi bi-file-person"></i>
+          <li data-reply-id="<%= reply.id %>">
+            <div class="division3">
+              <div class="message-icon">
+                <i class="bi bi-file-person"></i>
+              </div>
+              <div class="message-content">
+                <%= reply.user.username %> : <%=
+                reply.createdAt.toLocaleString("ja-JP", { weekday: "long",
+                year:"numeric", month: "2-digit", day: "2-digit", hour:
+                "2-digit",minute: "2-digit" }) %>
+              </div>
             </div>
-            <div class="message-content">
-              <%= reply.user.username %> : <%=
-              reply.createdAt.toLocaleString("ja-JP", { weekday: "long",
-              year:"numeric", month: "2-digit", day: "2-digit", hour:
-              "2-digit",minute: "2-digit" }) %>
+            <div class="division4">
+              <div><%= reply.content %></div>
+              <% if(reply.user.id === userid) { %>
+              <div class="delete-button-container">
+                <form
+                  action="/threads/<%= thread.id %>/reply/<%= reply.id %>?_method=delete"
+                  method="post"
+                >
+                  <button class="delete-button" type="submit">削除</button>
+                </form>
+              </div>
+              <% } %> <% }); %>
             </div>
-          </li>
-          <li class="list4">
-            <div><%= reply.content %></div>
-            <% if(reply.user.id === userid) { %>
-            <div class="delete-button-container">
-              <form
-                action="/threads/<%= thread.id %>/reply/<%= reply.id %>?_method=delete"
-                method="post"
-              >
-                <button class="delete-button" type="submit">削除</button>
-              </form>
-            </div>
-            <% } %> <% }); %>
           </li>
         </ul>
         <script>
