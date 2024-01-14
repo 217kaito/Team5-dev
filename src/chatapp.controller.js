@@ -3,6 +3,7 @@ const {
   createPost,
   createThread,
   getThreads,
+  getThreadByThreadId,
   getPostsByThreadId,
   updateUser,
   // getUser,

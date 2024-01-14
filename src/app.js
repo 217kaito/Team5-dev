@@ -9,7 +9,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const session = require("express-session");
 const PORT = 3000;
-const { createUser, getUser } = require("./chatapp.service");
+const { createUser, getUserById } = require("./chatapp.service");
 const bcrypt = require("bcrypt");
 const passwordSaltRounds = 10;
 
@@ -36,7 +36,7 @@ const run = () => {
   passport.use(
     new LocalStrategy(function (userId, password, done) {
       (async () => {
-        const user = await getUser(userId);
+        const user = await getUserById(userId);
         if (!user) {
           return done(null, false);
         }
@@ -106,13 +106,13 @@ const run = () => {
       if (!id.match(/^[a-z]{2}[0-9]{6}$/)) {
         return res.status(400).send("invalid id");
       }
-      if (!password.match(/^.{,16}$/)) {
+      if (!password.match(/^.{8,16}$/)) {
         return res.status(400).send("invalid password");
       }
-      if (!username.match(/^.{8,16}$/)) {
+      if (!username.match(/^.{1,16}$/)) {
         return res.status(400).send("invalid username");
       }
-      if (await getUser(id)) {
+      if (await getUserById(id)) {
         return res.redirect("/register?stat=dup");
       }
 

@@ -51,12 +51,12 @@ const getPostsByThreadId = async (threadid) => {
 };
 
 // ユーザ情報を取得
-const getUserbyId = async (userId) => {
+const getUserById = async (userId) => {
   const user = await models.user.findOne({ where: { id: userId } });
   return user;
 };
 
-const getUserbyName = async (userName) => {
+const getUserByName = async (userName) => {
   const user = await models.user.findOne({ where: { username: userName } });
   return user;
 };
@@ -73,7 +73,7 @@ const createUser = async (userId, userIp, userName, userPasswordHash) => {
 // ユーザ情報を更新
 const updateUser = async (userId, userName, userPassword) => {
   // 同じユーザネームがあれば作成しない
-  const userbyname = await getUserbyName(userName);
+  const userbyname = await getUserByName(userName);
   console.log(userbyname);
   if (userbyname) {
     return false;
@@ -95,7 +95,7 @@ module.exports = {
   getPostsByThreadId,
   getThreadByThreadId,
   createUser,
-  getUserbyId,
-  getUserbyName,
+  getUserById,
+  getUserByName,
   updateUser,
 };
