@@ -116,15 +116,15 @@
           ></textarea>
           <br />
           <button type="submit">投稿</button>
-          <button
-            type="submit"
-            class="navigation-button"
-            id="closeFormButton-<%= post.id %>"
-            onclick="closeFormButton(<%= post.id %>)"
-          >
-            閉じる
-          </button>
         </form>
+          <button
+          type="submit"
+          class="navigation-button"
+          id="closeFormButton-<%= post.id %>"
+          onclick="closeFormButton(<%= post.id %>)"
+        >
+          閉じる
+        </button>
       </div>
         <% if (post.replies && post.replies.length > 0) { %>
         <ul id="repliesList">
