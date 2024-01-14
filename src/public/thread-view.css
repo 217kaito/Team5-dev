@@ -34,23 +34,51 @@ li .message-content {
 .list1 {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   border-bottom: 1px solid #ddd;
   padding-bottom: 10px;
   background-color: #000;
-}
-
-.list1 .delete-button-container {
-  display: flex;
-  align-items: center;
 }
 
 .list2 {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   border-bottom: 1px solid #ddd;
+  margin-bottom: 5px;
   padding-bottom: 10px;
   background-color: #000;
+}
+
+.list2 .delete-button-container {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.list3 {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #000;
+  padding-bottom: 10px;
+  background-color: white;
+  color: #000;
+}
+
+.list4 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #000;
+  padding-bottom: 10px;
+  margin-bottom: 5px;
+  background-color: white;
+  color: #000;
+}
+
+.list4 .delete-button-container {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
 }
 
 /* Style for the New Post label */
@@ -74,7 +102,10 @@ button:hover {
   background-color: #218838; /* ホバー時の背景色を変更 */
 }
 
-/* 返信ボタンにマージンを追加 */
 .navigation-button {
+  margin-bottom: 10px;
+}
+
+.post-button {
   margin-bottom: 10px;
 }
