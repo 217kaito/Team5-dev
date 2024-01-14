@@ -94,7 +94,7 @@
             id="showFormButton-<%= post.id %>"
             onclick="showFormButton(<%= post.id %>)"
           >
-            reply
+            返信
           </button>
           <!-- 以下、返信フォーム -->
           <div
@@ -102,7 +102,7 @@
             id="inputForm-<%= post.id %>"
             style="display: none"
           >
-            <label for="replycontent">New Post:</label>
+            <label for="replycontent">返信:</label>
             <form
               action="/threads/<%= thread.id %>/post/<%= post.id %>"
               method="post"
@@ -114,14 +114,14 @@
                 cols="50"
               ></textarea>
               <br />
-              <button type="submit">Post</button>
+              <button type="submit">投稿</button>
               <button
                 type="submit"
                 class="navigation-button"
                 id="closeFormButton-<%= post.id %>"
                 onclick="closeFormButton(<%= post.id %>)"
               >
-                close
+                閉じる
               </button>
             </form>
           </div>
@@ -146,7 +146,7 @@
                 action="/threads/<%= thread.id %>/reply/<%= reply.id %>?_method=delete"
                 method="post"
               >
-                <button type="submit">delete</button>
+                <button type="submit">削除</button>
               </form>
             </div>
             <% } %> <% }); %>
