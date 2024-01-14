@@ -42,7 +42,7 @@ li .message-content {
   align-items: center;
   margin-top: 7px;
 }
-.list3 {
+.division3 {
   display: flex;
   align-items: center;
   border-bottom: 1px solid #000;
@@ -50,7 +50,7 @@ li .message-content {
   background-color: white;
   color: #000;
 }
-.list4 {
+.division4 {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -60,7 +60,7 @@ li .message-content {
   background-color: white;
   color: #000;
 }
-.list4 .delete-button-container {
+.division4 .delete-button-container {
   display: flex;
   align-items: center;
   margin-top: 7px;
