@@ -1,7 +1,8 @@
 /* src/public/thread-view.css */
 
+/* 背景をグラデーションにする */
 body {
-  background-color: #712cf9;
+  background: radial-gradient(circle, #603c8e 0%, #28043c 100%);
   color: #fff;
 }
 
