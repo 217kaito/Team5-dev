@@ -19,11 +19,20 @@ const createPost = async (userid, messageThreadId, messageContent) => {
 };
 
 // スレッドの作成
-const createThread = async (userid, threadTitle) => {
+const createThread = async (userid, threadTitle, threadCategory) => {
   await models.thread.create({
     title: threadTitle,
     userId: userid,
+    category: threadCategory,
   });
+};
+
+// スレッドIDからスレッド情報を取得
+const getThreadByThreadId = async (threadId) => {
+  const thread = await models.thread.findOne({
+    where: { id: threadId },
+  });
+  return thread;
 };
 
 // 全てのスレッドを取得
@@ -49,18 +58,12 @@ const getUser = async (userId) => {
 
 // ユーザ情報を作成(ユーザ認証するのかな？)
 const createUser = async (userId, userIp, userName, userPassword) => {
-  // 同じidがあれば作成しない
-  const user = await getUser(userId);
-  if (user) {
-    return false;
-  }
   await models.user.create({
     id: userId,
     ip: userIp,
     username: userName,
     password: userPassword,
   });
-  return true;
 };
 
 module.exports = {
@@ -68,6 +71,7 @@ module.exports = {
   createThread,
   getThreads,
   getPostsByThreadId,
+  getThreadByThreadId,
   createUser,
   getUser,
 };

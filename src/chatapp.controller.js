@@ -4,6 +4,7 @@ const {
   createThread,
   getThreads,
   getPostsByThreadId,
+  // getThreadByThreadId,
   // getUser,
   // createUser,
 } = require("./chatapp.service");
@@ -28,7 +29,8 @@ router.post("/:threadId/post", async (req, res) => {
 router.post("/create", async (req, res) => {
   const id = req.user.id;
   const title = req.body.threadTitle;
-  await createThread(id, title);
+  const category = req.body.threadCategory;
+  await createThread(id, title, category);
   res.redirect("/threads"); // スレッド一覧ページにリダイレクト
 });
 

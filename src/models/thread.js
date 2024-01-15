@@ -28,6 +28,10 @@ module.exports = (sequelize) => {
       allowNull: false,
       type: DataTypes.DATE,
     },
+    category: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   });
 
   // thread : message で 1:n の関係であることを示す
