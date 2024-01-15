@@ -9,7 +9,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const session = require("express-session");
 const PORT = 3000;
-const { createUser, getUser } = require("./chatapp.service");
+const { createUser, getUser, getUserbyName } = require("./chatapp.service");
 const bcrypt = require("bcrypt");
 const passwordSaltRounds = 10;
 
@@ -87,7 +87,11 @@ const run = () => {
       return res
         .status(409)
         .render("register", { message: { error: "ユーザIDが重複しています" } });
-    } else if (stat === "invalid") {
+    } else if (stat === "dup2") {
+      return res
+        .status(409)
+        .render("register", { message: { error: "ユーザネームが重複しています" } });
+    }else if (stat === "invalid") {
       return res
         .status(400)
         .render("register", { message: { error: "入力値が不正です" } });
@@ -114,6 +118,9 @@ const run = () => {
       }
       if (await getUser(id)) {
         return res.redirect("/register?stat=dup");
+      }
+      if (await getUserbyName(username)) {
+        return res.redirect("/register?stat=dup2");
       }
 
       const passwordHash = await bcrypt.hash(password, passwordSaltRounds);
