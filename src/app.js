@@ -10,6 +10,8 @@ const LocalStrategy = require("passport-local");
 const session = require("express-session");
 const PORT = 3000;
 const { createUser, getUser } = require("./chatapp.service");
+const bcrypt = require("bcrypt");
+const passwordSaltRounds = 10;
 
 const run = () => {
   const app = express();
@@ -32,15 +34,17 @@ const run = () => {
   app.use(passport.session());
 
   passport.use(
-    new LocalStrategy(async function (userId, password, done) {
-      const user = await getUser(userId);
-      if (!user) {
-        return done(null, false);
-      }
-      if (!(user.password === password)) {
-        return done(null, false);
-      }
-      return done(null, user);
+    new LocalStrategy(function (userId, password, done) {
+      (async () => {
+        const user = await getUser(userId);
+        if (!user) {
+          return done(null, false);
+        }
+        if ((await bcrypt.compare(password, user.passwordHash)) === false) {
+          return done(null, false);
+        }
+        done(null, user);
+      })().catch(done);
     }),
   );
 
@@ -62,7 +66,7 @@ const run = () => {
     if (req.isAuthenticated()) {
       next();
     } else {
-      res.redirect("/login");
+      res.redirect("/login?stat=requirelogin");
     }
   };
 
@@ -75,7 +79,21 @@ const run = () => {
   app.use("/threads", checkAuth, router);
 
   app.get("/register", (req, res) => {
-    res.render("register");
+    if (req.isAuthenticated()) {
+      return res.redirect("/threads");
+    }
+    const stat = req.query.stat;
+    if (stat === "dup") {
+      return res
+        .status(409)
+        .render("register", { message: { error: "ユーザIDが重複しています" } });
+    } else if (stat === "invalid") {
+      return res
+        .status(400)
+        .render("register", { message: { error: "入力値が不正です" } });
+    } else {
+      return res.render("register", { message: {} });
+    }
   });
 
   app.post("/register", (req, res, next) => {
@@ -85,29 +103,50 @@ const run = () => {
       const username = req.body.username;
       const password = req.body.password;
 
-      if (id === "" || username === "" || password === "") {
-        return res.status(400).send("invalid parameter");
+      if (!id.match(/^[a-z]{2}[0-9]{6}$/)) {
+        return res.status(400).send("invalid id");
+      }
+      if (!username.match(/^.{1,16}$/)) {
+        return res.status(400).send("invalid username");
+      }
+      if (!password.match(/^.{8,16}$/)) {
+        return res.status(400).send("invalid password");
       }
       if (await getUser(id)) {
-        return res.status(409).send("userId already exists");
+        return res.redirect("/register?stat=dup");
       }
-      // TODO: usernameの制約を追加する
-      // TODO: passwordの制約を追加する
 
-      await createUser(id, ip, username, password);
-      res.redirect("/login");
+      const passwordHash = await bcrypt.hash(password, passwordSaltRounds);
+      await createUser(id, ip, username, passwordHash);
+      res.redirect("/login?stat=registered");
     })().catch(next);
   });
 
   app.get("/login", function (req, res) {
-    res.render("login");
+    if (req.isAuthenticated()) {
+      return res.redirect("/threads");
+    }
+    const stat = req.query.stat;
+    if (stat === "failed") {
+      return res.render("login", {
+        message: { error: "ログインに失敗しました" },
+      });
+    } else if (stat === "loggedout") {
+      return res.render("login", { message: { info: "ログアウトしました" } });
+    } else if (stat === "registered") {
+      return res.render("login", { message: { info: "登録が完了しました" } });
+    } else if (stat === "requirelogin") {
+      return res.render("login", { message: { error: "ログインが必要です" } });
+    } else {
+      return res.render("login", { message: {} });
+    }
   });
 
   app.post(
     "/login",
     passport.authenticate("local", {
       successRedirect: "/threads",
-      failureRedirect: "/login",
+      failureRedirect: "/login?stat=failed",
     }),
   );
 
@@ -116,7 +155,7 @@ const run = () => {
       if (err) {
         return next(err);
       }
-      res.redirect("/threads");
+      res.redirect("/login?stat=loggedout");
     });
   });
 
