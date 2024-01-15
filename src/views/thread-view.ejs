@@ -115,15 +115,15 @@
               ></textarea>
               <br />
               <button type="submit">Post</button>
-              <button
-                type="submit"
-                class="navigation-button"
-                id="closeFormButton-<%= post.id %>"
-                onclick="closeFormButton(<%= post.id %>)"
-              >
-                close
-              </button>
             </form>
+            <button
+              type="submit"
+              class="navigation-button"
+              id="closeFormButton-<%= post.id %>"
+              onclick="closeFormButton(<%= post.id %>)"
+            >
+              close
+            </button>
           </div>
         </li>
         <% if (post.replies && post.replies.length > 0) { %>
