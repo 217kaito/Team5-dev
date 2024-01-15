@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
     },
     userId: {
       type: DataTypes.STRING,
-      allowNull: null,
+      allowNull: false,
     },
     content: {
       type: DataTypes.STRING,
@@ -41,6 +41,9 @@ module.exports = (sequelize) => {
     Message.belongsTo(models.User, {
       foreignKey: "userId", // message.ip のカラム名を指定する
       targetKey: "id", // 対応する User テーブルのカラム名を指定する
+    });
+    Message.hasMany(models.Reply, {
+      foreignKey: "messageId",
     });
   };
   Message.sync();
