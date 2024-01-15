@@ -17,6 +17,7 @@ jobs:
           name: app
           path: |
             dist
+            node_modules/bcrypt
             package*.json
   deploy:
     needs:

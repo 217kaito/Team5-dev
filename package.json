@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npm-run-all clean build:* copy",
-    "build:server": "esbuild --bundle --platform=node --outdir=dist --minify src/index.js",
+    "build:server": "esbuild --external:bcrypt --bundle --platform=node --outdir=dist --minify src/index.js",
     "clean": "rimraf dist",
     "copy": "npm-run-all copy:*",
     "copy:public": "cpr --filter=.+\\.js$ src/public dist/public",
