@@ -83,6 +83,7 @@
           <div><%= post.content %></div>
           <% if(post.user.id === userid) { %>
           <div class="delete-button-container">
+          <div>
             <form
               action="/threads/<%= thread.id %>/post/<%= post.id %>?_method=delete"
               method="post"
