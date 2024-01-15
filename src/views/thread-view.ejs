@@ -53,8 +53,8 @@
   <body>
     <div class="container">
       <div class="thread-info">
-        <h1><%= thread.title %></h1>
-        <h3><%= thread.content %></h3>
+        <h1 class="mt-5" style="color: white"><%= thread.title %></h1>
+        <p><strong>概要:</strong><%= thread.content %></p>
         <p><strong>カテゴリ:</strong> <%= thread.category %></p>
       </div>
       <div class="logout">
@@ -65,7 +65,7 @@
       <div class="setting">
         <a href="/threads/setting">設定</a>
       </div>
-      <a href="/threads" class="btn btn-primary">スレッド一覧に戻る</a>
+      <a href="/threads">スレッド一覧に戻る</a>
       <ul>
         <% posts.forEach(post => { %>
         <li class="list1">
@@ -82,76 +82,80 @@
         <li class="list2">
           <div><%= post.content %></div>
           <% if(post.user.id === userid) { %>
-          <div>
+          <div class="delete-button-container">
             <form
               action="/threads/<%= thread.id %>/post/<%= post.id %>?_method=delete"
               method="post"
             >
-              <button type="submit">delete</button>
+              <button class="delete-button" type="submit">削除</button>
             </form>
           </div>
           <% } %>
-          <button
-            class="navigation-button"
-            id="showFormButton-<%= post.id %>"
-            onclick="showFormButton(<%= post.id %>)"
-          >
-            reply
-          </button>
-          <!-- 以下、返信フォーム -->
-          <div
-            class="form-container"
-            id="inputForm-<%= post.id %>"
-            style="display: none"
-          >
-            <label for="replycontent">New Post:</label>
-            <form
-              action="/threads/<%= thread.id %>/post/<%= post.id %>"
-              method="post"
-            >
-              <textarea
-                id="replycontent"
-                name="replycontent"
-                rows="4"
-                cols="50"
-              ></textarea>
-              <br />
-              <button type="submit">Post</button>
-            </form>
-            <button
-              type="submit"
-              class="navigation-button"
-              id="closeFormButton-<%= post.id %>"
-              onclick="closeFormButton(<%= post.id %>)"
-            >
-              close
-            </button>
-          </div>
         </li>
+        <button
+          class="navigation-button"
+          id="showFormButton-<%= post.id %>"
+          onclick="showFormButton(<%= post.id %>)"
+        >
+          返信
+        </button>
+        <!-- 以下、返信フォーム -->
+        <div
+          class="form-container"
+          id="inputForm-<%= post.id %>"
+          style="display: none"
+        >
+          <label for="replycontent">返信:</label>
+          <form
+            action="/threads/<%= thread.id %>/post/<%= post.id %>"
+            method="post"
+          >
+            <textarea
+              id="replycontent"
+              name="replycontent"
+              rows="4"
+              cols="50"
+            ></textarea>
+            <br />
+            <button class="post-button" type="submit">投稿</button>
+          </form>
+          <button
+            type="submit"
+            class="navigation-button"
+            id="closeFormButton-<%= post.id %>"
+            onclick="closeFormButton(<%= post.id %>)"
+          >
+            閉じる
+          </button>
+        </div>
         <% if (post.replies && post.replies.length > 0) { %>
         <ul id="repliesList">
           <% post.replies.forEach(reply => { %>
           <li data-reply-id="<%= reply.id %>">
-            <div class="message-icon">
-              <i class="bi bi-file-person"></i>
-            </div>
-            <div class="message-content">
-              <%= reply.user.username %> : <%=
-              reply.createdAt.toLocaleString("ja-JP", { weekday: "long",
-              year:"numeric", month: "2-digit", day: "2-digit", hour:
-              "2-digit",minute: "2-digit" }) %>
-            </div>
-            <div><%= reply.content %></div>
-            <% if(reply.user.id === userid) { %>
-            <div>
-              <form
-                action="/threads/<%= thread.id %>/reply/<%= reply.id %>?_method=delete"
-                method="post"
-              >
-                <button type="submit">delete</button>
-              </form>
-            </div>
-            <% } %> <% }); %>
+            <span class="division3">
+              <div class="message-icon">
+                <i class="bi bi-file-person"></i>
+              </div>
+              <div class="message-content">
+                <%= reply.user.username %> : <%=
+                reply.createdAt.toLocaleString("ja-JP", { weekday: "long",
+                year:"numeric", month: "2-digit", day: "2-digit", hour:
+                "2-digit",minute: "2-digit" }) %>
+              </div>
+            </span>
+            <span class="division4">
+              <div><%= reply.content %></div>
+              <% if(reply.user.id === userid) { %>
+              <div class="delete-button-container">
+                <form
+                  action="/threads/<%= thread.id %>/reply/<%= reply.id %>?_method=delete"
+                  method="post"
+                >
+                  <button class="delete-button" type="submit">削除</button>
+                </form>
+              </div>
+              <% } %> <% }); %>
+            </span>
           </li>
         </ul>
         <script>
