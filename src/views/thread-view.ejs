@@ -38,11 +38,15 @@
   </head>
   <body>
     <div class="container">
-      <h1>Thread View</h1>
-      <div class="logout">
-        <a href="/logout">ログアウト</a>
+      <div class="thread-info">
+        <h1><%= thread.title %></h1>
+        <p><strong>カテゴリ:</strong> <%= thread.category %></p>
       </div>
-      <a href="/threads">Back to Thread List</a>
+      <div class="logout">
+        <form action="/logout" method="get">
+          <button type="submit" class="btn btn-danger">ログアウト</button>
+      </div>
+      <a href="/threads" class="btn btn-primary">スレッド一覧に戻る</a>
       <ul>
         <% posts.forEach(post => { %>
         <li class="list1">
@@ -61,11 +65,11 @@
         </li>
         <% }); %>
       </ul>
-      <label for="content">New Post:</label>
+      <label for="content">新規投稿:</label>
       <form action="/threads/<%= threadId %>/post" method="post">
         <textarea id="content" name="content" rows="4" cols="50"></textarea>
         <br />
-        <button type="submit">Post</button>
+        <button type="submit">投稿</button>
       </form>
     </div>
 
