@@ -43,9 +43,10 @@
         <p><strong>カテゴリ:</strong> <%= thread.category %></p>
       </div>
       <div class="logout">
-        <a href="/logout">ログアウト</a>
+        <form action="/logout" method="get">
+          <button type="submit" class="btn btn-danger">ログアウト</button>
       </div>
-      <a href="/threads">スレッド一覧に戻る</a>
+      <a href="/threads" class="btn btn-primary">スレッド一覧に戻る</a>
       <ul>
         <% posts.forEach(post => { %>
         <li class="list1">
