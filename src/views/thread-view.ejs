@@ -39,13 +39,13 @@
     <div class="container">
       <div class="thread-info">
         <h1 class="mt-5" style="color: white"><%= thread.title %></h1>
-        <% if(thread.content === "") { %>
-        <p><strong>概要:</strong>未設定</p>
-        <% } %> <% if(thread.content !== "") { %>
+        <% if(!thread.content) { %>
+        <p class="thread-info-placeholder"><strong>概要:</strong>未設定</p>
+        <% } else { %>
         <p><strong>概要:</strong><%= thread.content %></p>
-        <% } %> <% if(thread.category === "") { %>
-        <p><strong>カテゴリ:</strong>未設定</p>
-        <% } %> <% if(thread.category !== "") { %>
+        <% } %> <% if(!thread.category) { %>
+        <p class="thread-info-placeholder"><strong>カテゴリ:</strong>未設定</p>
+        <% } else { %>
         <p><strong>カテゴリ:</strong><%= thread.category %></p>
         <% } %>
       </div>

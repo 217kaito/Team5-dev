@@ -114,3 +114,9 @@ button:hover {
 .post-button {
   margin-bottom: 10px;
 }
+
+/* スレッドの概要・カテゴリが未設定の場合のスタイル */
+.thread-info-placeholder {
+  color: #888; /* 未設定の場合のテキストカラーをグレーに設定 */
+  font-style: italic; /* 斜体にすることで目立たなくする */
+}
