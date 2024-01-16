@@ -6,21 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thread View</title>
-    <script>
-      function sortReplies() {
-        const repliesList = document.getElementById("repliesList");
-        const replies = Array.from(repliesList.children);
-
-        replies.sort((a, b) => {
-          const idA = parseInt(a.dataset.replyId);
-          const idB = parseInt(b.dataset.replyId);
-          return idA - idB;
-        });
-
-        replies.forEach((reply) => repliesList.appendChild(reply));
-      }
-    </script>
-
     <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -54,8 +39,15 @@
     <div class="container">
       <div class="thread-info">
         <h1 class="mt-5" style="color: white"><%= thread.title %></h1>
+        <% if(!thread.content) { %>
+        <p class="thread-info-placeholder"><strong>概要:</strong>未設定</p>
+        <% } else { %>
         <p><strong>概要:</strong><%= thread.content %></p>
-        <p><strong>カテゴリ:</strong> <%= thread.category %></p>
+        <% } %> <% if(!thread.category) { %>
+        <p class="thread-info-placeholder"><strong>カテゴリ:</strong>未設定</p>
+        <% } else { %>
+        <p><strong>カテゴリ:</strong><%= thread.category %></p>
+        <% } %>
       </div>
       <div class="logout">
         <form action="/logout" method="get">
@@ -130,7 +122,8 @@
         </div>
         <% if (post.replies && post.replies.length > 0) { %>
         <ul id="repliesList">
-          <% post.replies.forEach(reply => { %>
+          <% post.replies.sort((a, b) => a.id - b.id).forEach(function(reply) {
+          %>
           <li data-reply-id="<%= reply.id %>">
             <span class="division3">
               <div class="message-icon">
