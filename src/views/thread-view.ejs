@@ -39,8 +39,15 @@
     <div class="container">
       <div class="thread-info">
         <h1 class="mt-5" style="color: white"><%= thread.title %></h1>
+        <% if(!thread.content) { %>
+        <p class="thread-info-placeholder"><strong>概要:</strong>未設定</p>
+        <% } else { %>
         <p><strong>概要:</strong><%= thread.content %></p>
-        <p><strong>カテゴリ:</strong> <%= thread.category %></p>
+        <% } %> <% if(!thread.category) { %>
+        <p class="thread-info-placeholder"><strong>カテゴリ:</strong>未設定</p>
+        <% } else { %>
+        <p><strong>カテゴリ:</strong><%= thread.category %></p>
+        <% } %>
       </div>
       <div class="logout">
         <form action="/logout" method="get">
@@ -115,7 +122,8 @@
         </div>
         <% if (post.replies && post.replies.length > 0) { %>
         <ul id="repliesList">
-          <% post.replies.sort((a, b) => a.id - b.id).forEach(function(reply) {  %>
+          <% post.replies.sort((a, b) => a.id - b.id).forEach(function(reply) {
+          %>
           <li data-reply-id="<%= reply.id %>">
             <span class="division3">
               <div class="message-icon">
