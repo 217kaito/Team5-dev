@@ -15,12 +15,23 @@
   <body>
     <div class="container" style="margin-bottom: 20px">
       <div class="container1">
-        <h1 class="mt-5" style="color: silver">スレッド一覧</h1>
+        <h1 class="mt-5" style="color: white">スレッド一覧</h1>
         <div class="logout">
           <form action="/logout" method="get">
             <button type="submit" class="btn btn-danger">ログアウト</button>
           </form>
         </div>
+        <div class="setting">
+          <a href="/threads/setting">設定</a>
+        </div>
+        <label
+          for="search-input"
+          class="form-label"
+          style="color: white; font-weight: bold"
+          >検索:</label
+        >
+        <input type="text" id="search-input" placeholder="キーワードを入力" />
+        <div id="search-results"></div>
         <ul class="list-group">
           <% threads.forEach(thread => { %>
           <li class="list-group-item">
@@ -37,7 +48,7 @@
           <label
             for="threadTitle"
             class="form-label"
-            style="color: silver; font-weight: bold"
+            style="color: white; font-weight: bold"
             >スレッドのタイトル:</label
           >
           <input
@@ -87,6 +98,20 @@
 
           <input type="hidden" id="threadCategory" name="threadCategory" />
 
+          <br />
+
+          <label
+            for="threadContent"
+            class="form-label"
+            style="color: white; font-weight: bold"
+            >スレッドの概要:</label
+          ><br />
+          <textarea
+            id="threadContent"
+            name="threadContent"
+            rows="4"
+            cols="50"
+          ></textarea>
           <button type="submit" class="btn btn-primary mt-2">
             スレッドの作成
           </button>
@@ -94,6 +119,63 @@
       </div>
     </div>
 
+    <script>
+      const searchInput = document.getElementById("search-input");
+      const searchTargets = document.querySelectorAll(".list-group-item");
+      const searchResults = document.getElementById("search-results");
+
+      function showSearchResult(target) {
+        target.style.display = "block";
+      }
+
+      function hideSearchResult(target) {
+        target.style.display = "none";
+      }
+
+      function filterSearchResults() {
+        searchTargets.forEach((target) => {
+          const text = target.textContent.toLowerCase();
+          const keyword = searchInput.value.trim().toLowerCase();
+          if (text.includes(keyword)) {
+            showSearchResult(target);
+          } else {
+            hideSearchResult(target);
+          }
+        });
+      }
+
+      searchInput.addEventListener("input", filterSearchResults);
+      function showNoResultsMessage() {
+        searchResults.innerHTML = "<p>検索結果がありません。</p>";
+      }
+
+      function clearSearchResults() {
+        searchResults.innerHTML = "";
+      }
+      function updateSearchResults() {
+        const visibleTargets = Array.from(searchTargets).filter(
+          (target) => target.style.display === "block",
+        );
+        if (visibleTargets.length === 0) {
+          showNoResultsMessage();
+        } else {
+          clearSearchResults();
+        }
+      }
+
+      searchInput.addEventListener("input", updateSearchResults);
+      let timeoutId = null;
+      const debounceTime = 300;
+
+      function debouncedFilterSearchResults() {
+        if (timeoutId) {
+          clearTimeout(timeoutId);
+        }
+        timeoutId = setTimeout(filterSearchResults, debounceTime);
+      }
+
+      searchInput.addEventListener("input", debouncedFilterSearchResults);
+    </script>
     <!-- Bootstrap JS (Popper.js and Bootstrap JS) -->
     <script
       defer
