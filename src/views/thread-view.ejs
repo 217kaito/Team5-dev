@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thread View</title>
-
     <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -38,11 +37,20 @@
   </head>
   <body>
     <div class="container">
-      <h1>Thread View</h1>
-      <div class="logout">
-        <a href="/logout">ログアウト</a>
+      <div class="thread-info">
+        <h1 class="mt-5" style="color: white"><%= thread.title %></h1>
+        <p><strong>概要:</strong><%= thread.content %></p>
+        <p><strong>カテゴリ:</strong> <%= thread.category %></p>
       </div>
-      <a href="/threads">Back to Thread List</a>
+      <div class="logout">
+        <form action="/logout" method="get">
+          <button type="submit" class="btn btn-danger">ログアウト</button>
+        </form>
+      </div>
+      <div class="setting">
+        <a href="/threads/setting">設定</a>
+      </div>
+      <a href="/threads">スレッド一覧に戻る</a>
       <ul>
         <% posts.forEach(post => { %>
         <li class="list1">
@@ -58,17 +66,123 @@
         </li>
         <li class="list2">
           <div><%= post.content %></div>
+          <% if(post.user.id === userid) { %>
+          <div class="delete-button-container">
+            <form
+              action="/threads/<%= thread.id %>/post/<%= post.id %>?_method=delete"
+              method="post"
+            >
+              <button class="delete-button" type="submit">削除</button>
+            </form>
+          </div>
+          <% } %>
         </li>
-        <% }); %>
+        <button
+          class="navigation-button"
+          id="showFormButton-<%= post.id %>"
+          onclick="showFormButton(<%= post.id %>)"
+        >
+          返信
+        </button>
+        <!-- 以下、返信フォーム -->
+        <div
+          class="form-container"
+          id="inputForm-<%= post.id %>"
+          style="display: none"
+        >
+          <label for="replycontent">返信:</label>
+          <form
+            action="/threads/<%= thread.id %>/post/<%= post.id %>"
+            method="post"
+          >
+            <textarea
+              id="replycontent"
+              name="replycontent"
+              rows="4"
+              cols="50"
+            ></textarea>
+            <br />
+            <button class="post-button" type="submit">投稿</button>
+          </form>
+          <button
+            type="submit"
+            class="navigation-button"
+            id="closeFormButton-<%= post.id %>"
+            onclick="closeFormButton(<%= post.id %>)"
+          >
+            閉じる
+          </button>
+        </div>
+        <% if (post.replies && post.replies.length > 0) { %>
+        <ul id="repliesList">
+          <% post.replies.sort((a, b) => a.id - b.id).forEach(function(reply) {  %>
+          <li data-reply-id="<%= reply.id %>">
+            <span class="division3">
+              <div class="message-icon">
+                <i class="bi bi-file-person"></i>
+              </div>
+              <div class="message-content">
+                <%= reply.user.username %> : <%=
+                reply.createdAt.toLocaleString("ja-JP", { weekday: "long",
+                year:"numeric", month: "2-digit", day: "2-digit", hour:
+                "2-digit",minute: "2-digit" }) %>
+              </div>
+            </span>
+            <span class="division4">
+              <div><%= reply.content %></div>
+              <% if(reply.user.id === userid) { %>
+              <div class="delete-button-container">
+                <form
+                  action="/threads/<%= thread.id %>/reply/<%= reply.id %>?_method=delete"
+                  method="post"
+                >
+                  <button class="delete-button" type="submit">削除</button>
+                </form>
+              </div>
+              <% } %> <% }); %>
+            </span>
+          </li>
+        </ul>
+        <script>
+          sortReplies();
+        </script>
+        <% } %> <% }); %>
       </ul>
-      <label for="content">New Post:</label>
+      <label for="content">新規投稿:</label>
       <form action="/threads/<%= threadId %>/post" method="post">
         <textarea id="content" name="content" rows="4" cols="50"></textarea>
         <br />
-        <button type="submit">Post</button>
+        <button type="submit">投稿</button>
       </form>
     </div>
+    <script>
+      showFormButton = async (id) => {
+        // ボタン要素と入力フォーム要素を取得
+        const showFormButton = await document.getElementById(
+          `showFormButton-${id}`,
+        );
+        const inputForm = await document.getElementById(`inputForm-${id}`);
 
+        // ボタンがクリックされたときの処理
+        await showFormButton.addEventListener("click", () => {
+          // 入力フォームを表示
+          inputForm.style.display = "block";
+        });
+      };
+      closeFormButton = async (id) => {
+        // ボタン要素と入力フォーム要素を取得
+        const closeFormButton = await document.getElementById(
+          `closeFormButton-${id}`,
+        );
+        const inputForm = await document.getElementById(`inputForm-${id}`);
+
+        // ボタンがクリックされたときの処理
+        await closeFormButton.addEventListener("click", () => {
+          // 入力フォームを表示
+          inputForm.style.display = "none";
+        });
+      };
+    </script>
     <script
       defer
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"

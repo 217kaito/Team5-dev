@@ -7,7 +7,6 @@ const Model = {};
 // const sequelize = new Sequelize(process.env.DB_CONNECTION_URL);
 const sequelize = new Sequelize({
   dialect: "sqlite",
-  storage: "db/database.sqlite",
   logQueryParameters: true,
   benchmark: true,
 });
@@ -15,6 +14,7 @@ const sequelize = new Sequelize({
 Model.Thread = require("./thread")(sequelize);
 Model.Message = require("./message")(sequelize);
 Model.User = require("./user")(sequelize);
+Model.Reply = require("./reply")(sequelize);
 // Add more models here...
 // require('./models/item'),
 

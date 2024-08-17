@@ -17,9 +17,10 @@ module.exports = (sequelize) => {
     },
     username: {
       type: DataTypes.STRING,
+      unique: true,
       allowNull: null,
     },
-    password: {
+    passwordHash: {
       type: DataTypes.STRING,
       allowNull: null,
     },
@@ -41,6 +42,9 @@ module.exports = (sequelize) => {
     // User : Message で 1:n の関係であることを示す
     User.hasMany(models.Message, {
       foreignKey: "userId", // 対象 (message テーブル) のカラム名を指定する
+    });
+    User.hasMany(models.Reply, {
+      foreignKey: "userId", // 対象 (reply テーブル) のカラム名を指定する
     });
   };
   User.sync();
